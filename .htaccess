@@ -1,0 +1,6 @@
+## РЕСАЙЗИМ КАРТИНКИ С КЭШЕМ by Novikov
+RewriteEngine On
+RewriteCond %{HTTP_USER_AGENT} ^.*(Android|BlackBerry|Phone).*$ [NC]
+RewriteCond %{REQUEST_URI} ^(.*\.png|.*\.jpg|.*\.jpeg|.*\.gif)$
+# Если хочешь чтобы был реджирект на новый размер картинки то ставь [L,R] иначе [L] без редиректа
+RewriteRule ^(.*)$ /thumb.php?width=375&image=%1 [L]
