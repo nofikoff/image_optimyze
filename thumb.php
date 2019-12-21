@@ -88,6 +88,7 @@ $thumbPath = CACHE_DIR . $thumbHash;
 
 if ($originalWidth <= $width) {
     $data = file_get_contents($image);
+    header("cache-control: max-age=31536000");
     header("Content-type: $mime");
     header('Content-Length: ' . strlen($data));
     echo $data;
@@ -199,6 +200,8 @@ function findBrowserCache($tag, $lastModified)
 {
     header("Last-Modified: $lastModified");
     header("ETag: \"{$tag}\"");
+    header("cache-control: max-age=31536000");
+
 
     $ifNoneMatch = isset($_SERVER['HTTP_IF_NONE_MATCH']) ?
         stripslashes($_SERVER['HTTP_IF_NONE_MATCH']) :
