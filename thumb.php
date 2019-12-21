@@ -23,7 +23,6 @@ ini_set('display_startup_errors', 1);
 define('DEFAULT_QUALITY', 90);
 define('CACHE_DIR', rtrim(sys_get_temp_dir(), '/') . '/imagecache/');
 define('DOCUMENT_ROOT', $_SERVER['DOCUMENT_ROOT']);
-
 /*
 if (!isset($_GET['image'], $_GET['width'], $_GET['height'])) {
     header('HTTP/1.1 400 Bad Request');
@@ -46,7 +45,7 @@ if (!is_dir(CACHE_DIR)) {
 // Make sure we can read and write the cache directory
 if (!is_readable(CACHE_DIR)) {
     header('HTTP/1.1 500 Internal Server Error');
-    echo 'Error: the cache directory is not readable';
+    echo 'Error: the cache directory CACHE_DIR is not readable';
     exit();
 } else if (!is_writable(CACHE_DIR)) {
     header('HTTP/1.1 500 Internal Server Error');
@@ -111,7 +110,8 @@ if (!$nocache && file_exists($thumbPath)) {
 
 $saveAlphaChannel = false;
 $imageCreationFunction = 'imagecreatefromjpeg';
-$imageOutputFunction = 'imagejpeg';
+//$imageOutputFunction = 'imagejpeg';
+//$imageOutputFunction = 'imagewebp';
 
 $ratio = $originalWidth / $originalHeight;
 
@@ -159,6 +159,7 @@ ob_end_clean();
 
 imagedestroy($src);
 imagedestroy($dst);
+
 
 if ($nocache && file_exists($image)) {
     unlink($image);
